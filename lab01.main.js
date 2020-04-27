@@ -1,8 +1,8 @@
 // Update this constant with your ServiceNow credentials
 const options = {
-  url: 'https://dev82856.service-now.com/',
+  url: 'https://dev79131.service-now.com/',
   username: 'admin',
-  password: 'Wechatpari@765'
+  password: 'Dileepari@765'
 };
 
 
@@ -85,7 +85,7 @@ function get(serviceNowTable, callback) {
     } else if (!validResponseRegex.test(response.statusCode)) {
       console.error('Bad response code.');
       callbackError = response;
-    } else if (response.body.includes('Hibernating Instance')) {
+    } else if (response.body.includes('Instance Hibernating page')) {
       callbackError = 'Service Now instance is hibernating';
       console.error(callbackError);
     } else {

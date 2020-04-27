@@ -1,8 +1,8 @@
 // Update this constant with your ServiceNow credentials
 const options = {
-  url: 'https://dev82856.service-now.com/',
+  url: 'https://dev79131.service-now.com/',
   username: 'admin',
-  password: 'Wechatpari@765'
+  password: 'Dileepari@765'
 };
 
 
@@ -38,8 +38,8 @@ const validResponseRegex = /(2\d\d)/;
  */
 
 /**
- * @function get
- * @description Call the ServiceNow GET API.
+ * @function post
+ * @description Call the ServiceNow POST API.
  *
  * @param {string} serviceNowTable - The table target of the ServiceNow table API.
  * @param {iapCallback} callback - Callback a function.
@@ -47,7 +47,7 @@ const validResponseRegex = /(2\d\d)/;
  *   Will be HTML text if hibernating instance.
  * @param {error} callback.error - The error property of callback.
  */
-function get(serviceNowTable, callback) {
+function post(serviceNowTable, callback) {
 
   // Initialize return arguments for callback
   let callbackData = null;
@@ -60,13 +60,13 @@ function get(serviceNowTable, callback) {
   // Some properties are read from global const options.
   // Some properties are passed into function get() through parameters.
   const requestOptions = {
-    method: 'GET',
+    method: 'POST',
     auth: {
       user: options.username,
       pass: options.password,
     },
     baseUrl: options.url,
-    uri: `/api/now/table/${serviceNowTable}?sysparm_limit=1`,
+    uri: `/api/now/table/${serviceNowTable}`,
   };
 
   // Send Request to ServiceNow.
@@ -97,17 +97,24 @@ function get(serviceNowTable, callback) {
 }
 
 
-// This test function calls your request and logs any errors.
+/*
+ * This section is used to test your project.
+ * We will test both get() and post() functions.
+ * If either function returns data, print the returned data to console on STDOUT.
+ * If either function returns an error, print the returned data to the console on STDERR.
+ */
 function main() {
-  // Call function get().
-  // We are passing a static argument for parameter serviceNowTable.
-  // We are passing an anonymous function argument, a data-first callback,
-  // for parameter callback.
   get('change_request', (data, error) => {
     if (error) {
       console.error(`\nError returned from GET request:\n${JSON.stringify(error)}`);
     }
     console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`)
+  });
+  post('change_request', (data, error) => {
+    if (error) {
+      console.error(`\nError returned from POST request:\n${JSON.stringify(error)}`);
+    }
+    console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`)
   });
 }
 
